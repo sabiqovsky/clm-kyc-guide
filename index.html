@@ -247,38 +247,33 @@ footer a{color:var(--green)}
     <div><strong>New company with no amendments yet?</strong><br>If your company was recently established (less than 5 years) and has never changed anything in its founding documents, you only need the Akta Pendirian and SK Menkeh. No Akta Perubahan required.</div>
   </div>
 
-  <h3>Documents Required — by Business Type</h3>
-  <p style="font-size:13px;color:var(--muted)">Select your type above in Step 1 to see your relevant column highlighted.</p>
+  <h3>Documents Required — <span id="doc-table-label">PT & PMA</span></h3>
+  <p style="font-size:13px;color:var(--muted)">Change your business type in Step 1 to update this list.</p>
   <div style="overflow-x:auto">
-  <table class="doc-table">
+  <table class="doc-table" id="doc-table">
     <thead>
-      <tr>
-        <th>Document</th>
-        <th>PT & PMA</th>
-        <th>Foundation</th>
-        <th>CV</th>
-        <th>Perseroan Perseorangan</th>
-      </tr>
+      <tr><th>Document</th><th>Status</th></tr>
     </thead>
     <tbody>
-      <tr><td>Business Identification Number (NIB)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
-      <tr><td>Akta Pendirian</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
-      <tr><td>Akta Perubahan (all amendments)</td><td><span class="tag cond">If any</span></td><td><span class="tag cond">If any</span></td><td><span class="tag cond">If any</span></td><td><span class="tag no">❌ Not required</span></td></tr>
-      <tr><td>SK Menkeh — Pendirian and/or Perubahan</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
-      <tr><td>Authorized Person's Personal ID (KTP / KITAS + Passport)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
-      <tr><td>Company Tax ID (NPWP)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
-      <tr><td>Liveness Check (face verification)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
-      <tr><td>Proof of Business (website / online store)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
-      <tr><td>Board Resolution Granting Authority</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
-      <tr><td>Additional ID for shareholders &gt;20% share</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
-      <tr><td>Letter of Authorization (if PIC ≠ Director)</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
-      <tr><td>Merchant Proof of Address</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
-      <tr><td>Surat Keterangan Terdaftar (SKT)</td><td><span class="tag no">❌ Not required</span></td><td><span class="tag no">❌ Not required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag no">❌ Not required</span></td></tr>
-      <tr><td>Business licence (high-risk industries only)</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
+      <!-- pt:req, foundation:req, cv:req, pp:req -->
+      <tr><td>Business Identification Number (NIB)</td><td data-pt="req" data-foundation="req" data-cv="req" data-pp="req"></td></tr>
+      <tr><td>Akta Pendirian</td><td data-pt="req" data-foundation="req" data-cv="req" data-pp="req"></td></tr>
+      <tr><td>Akta Perubahan (all amendments)</td><td data-pt="cond" data-foundation="cond" data-cv="cond" data-pp="no"></td></tr>
+      <tr><td>SK Menkeh — Pendirian and/or Perubahan</td><td data-pt="req" data-foundation="req" data-cv="req" data-pp="req"></td></tr>
+      <tr><td>Authorized Person's Personal ID (KTP / KITAS + Passport)</td><td data-pt="req" data-foundation="req" data-cv="req" data-pp="req"></td></tr>
+      <tr><td>Company Tax ID (NPWP)</td><td data-pt="req" data-foundation="req" data-cv="req" data-pp="req"></td></tr>
+      <tr><td>Liveness Check (face verification)</td><td data-pt="req" data-foundation="req" data-cv="req" data-pp="req"></td></tr>
+      <tr><td>Proof of Business (website / online store)</td><td data-pt="req" data-foundation="req" data-cv="req" data-pp="req"></td></tr>
+      <tr><td>Board Resolution Granting Authority</td><td data-pt="cond" data-foundation="cond" data-cv="cond" data-pp="cond"></td></tr>
+      <tr><td>Additional ID for shareholders &gt;20% share</td><td data-pt="cond" data-foundation="cond" data-cv="cond" data-pp="cond"></td></tr>
+      <tr><td>Letter of Authorization (if PIC ≠ Director)</td><td data-pt="cond" data-foundation="cond" data-cv="cond" data-pp="cond"></td></tr>
+      <tr><td>Merchant Proof of Address</td><td data-pt="cond" data-foundation="cond" data-cv="cond" data-pp="cond"></td></tr>
+      <tr><td>Surat Keterangan Terdaftar (SKT)</td><td data-pt="no" data-foundation="no" data-cv="req" data-pp="no"></td></tr>
+      <tr><td>Business licence (high-risk industries only)</td><td data-pt="cond" data-foundation="cond" data-cv="cond" data-pp="cond"></td></tr>
     </tbody>
   </table>
   </div>
-  <p style="font-size:12px;color:var(--muted);margin-top:6px">Conditional = only required in specific situations described in the Important Notes. Check <a href="https://docs.xendit.co" target="_blank">docs.xendit.co</a> for industry-specific licence requirements.</p>
+  <p style="font-size:12px;color:var(--muted);margin-top:6px">Conditional = only required in specific situations. Check <a href="https://docs.xendit.co" target="_blank">docs.xendit.co</a> for industry-specific licence requirements.</p>
 
   <div class="nav-btns">
     <button class="btn btn-secondary" onclick="goToStep(0)">← Previous</button>
@@ -478,12 +473,28 @@ function goToStep(i) {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
+const BIZ_LABELS = {pt:'PT & PMA', foundation:'Foundation (Yayasan)', cv:'CV', pp:'Perseroan Perseorangan'};
+const TAG_TEXT = {req:'✅ Required', cond:'⚠️ Conditional', no:'❌ Not required'};
+let currentBiz = 'pt';
+
+function renderDocTable(biz) {
+  document.getElementById('doc-table-label').textContent = BIZ_LABELS[biz];
+  document.querySelectorAll('#doc-table tbody td[data-' + biz + ']').forEach(td => {
+    const type = td.getAttribute('data-' + biz);
+    td.innerHTML = '<span class="tag ' + type + '">' + TAG_TEXT[type] + '</span>';
+  });
+}
+
 function selectBiz(btn, id) {
   document.querySelectorAll('.biz-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.biz-content').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('biz-' + id).classList.add('active');
+  currentBiz = id;
+  renderDocTable(id);
 }
+
+renderDocTable('pt');
 
 function updateProgress(listId, barId, labelId, total) {
   const checked = document.querySelectorAll('#' + listId + ' input:checked').length;
