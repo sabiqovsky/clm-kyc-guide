@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Getting Verified with Xendit — KYC Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #1762EE;
+  --blue-dark: #1046A9;
+  --navy: #0D1735;
+  --green: #00CF99;
+  --amber: #FFBE0B;
+  --red: #E84855;
+  --bg: #F3F7FE;
+  --border: #CAD3EC;
+  --text: #233659;
+  --muted: #737B8B;
+  --white: #fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+a{color:var(--blue)}
+
+/* NAV */
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;height:60px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:18px;color:var(--navy);text-decoration:none}
+.logo svg{width:28px;height:28px}
+.nav-badge{margin-left:12px;font-size:12px;font-weight:600;background:var(--bg);color:var(--muted);padding:2px 10px;border-radius:20px;border:1px solid var(--border)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#1A2E6A 100%);color:var(--white);padding:56px 24px 48px;text-align:center}
+.hero h1{font-size:clamp(26px,4vw,40px);font-weight:700;line-height:1.2;margin-bottom:12px}
+.hero p{font-size:16px;color:#B7CFFB;max-width:520px;margin:0 auto 28px}
+.badge-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:6px 16px;font-size:13px;font-weight:500}
+
+/* STEPPER */
+.stepper-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;overflow-x:auto}
+.stepper{display:flex;max-width:760px;margin:0 auto}
+.step-tab{flex:1;padding:16px 8px;text-align:center;cursor:pointer;border-bottom:3px solid transparent;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;transition:all .2s;min-width:120px}
+.step-tab:hover{color:var(--blue)}
+.step-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.step-tab .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--border);color:var(--text);font-size:11px;margin-right:6px;transition:all .2s}
+.step-tab.active .num{background:var(--blue);color:#fff}
+.step-tab.done .num{background:var(--green);color:#fff}
+
+/* CONTENT */
+.container{max-width:760px;margin:0 auto;padding:32px 24px 64px}
+.step-panel{display:none}
+.step-panel.active{display:block}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:16px}
+h2{font-size:22px;font-weight:700;margin-bottom:8px;color:var(--navy)}
+h3{font-size:16px;font-weight:600;margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+
+/* CALLOUT */
+.callout{border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.callout.tip{background:#EEF5FF;border:1px solid #B7CFFB}
+.callout.warn{background:#FFF8E6;border:1px solid #FFBE0B44}
+.callout.info{background:#E6FBF5;border:1px solid #00CF9944}
+.callout-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+
+/* BUSINESS TYPE SELECTOR */
+.biz-selector{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.biz-btn{border:2px solid var(--border);background:var(--white);border-radius:10px;padding:14px 12px;cursor:pointer;text-align:center;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--text);transition:all .2s}
+.biz-btn:hover{border-color:var(--blue);color:var(--blue)}
+.biz-btn.active{border-color:var(--blue);background:#EEF5FF;color:var(--blue)}
+.biz-content{display:none}
+.biz-content.active{display:block}
+
+/* DOC TABLE */
+.doc-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.doc-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:600;font-size:12px}
+.doc-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.doc-table tr:last-child td{border-bottom:none}
+.doc-table tr:nth-child(even) td{background:#F9FAFB}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.tag.req{background:#E6FBF5;color:#007C5C}
+.tag.cond{background:#FFF8E6;color:#997207}
+.tag.no{background:#F5F5F5;color:#7A7A7A}
+
+/* CHECKLIST */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.checklist li{display:flex;align-items:flex-start;gap:10px;font-size:14px}
+.checklist li input[type=checkbox]{width:17px;height:17px;accent-color:var(--blue);margin-top:2px;flex-shrink:0;cursor:pointer}
+.checklist li label{cursor:pointer;line-height:1.5}
+.checklist li input:checked + label{text-decoration:line-through;color:var(--muted)}
+.progress-bar-wrap{background:var(--border);border-radius:99px;height:6px;margin:10px 0 4px;overflow:hidden}
+.progress-bar{height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:16px}
+
+/* TIMELINE */
+.timeline{display:flex;gap:0;margin:20px 0;overflow-x:auto;padding-bottom:4px}
+.tl-step{flex:1;text-align:center;position:relative;min-width:140px}
+.tl-step:not(:last-child)::after{content:'';position:absolute;top:20px;left:50%;width:100%;height:2px;background:var(--border);z-index:0}
+.tl-icon{width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:16px;position:relative;z-index:1}
+.tl-label{font-size:12px;font-weight:600;color:var(--navy);padding:0 8px}
+.tl-sub{font-size:11px;color:var(--muted);padding:0 8px;margin-top:2px}
+
+/* RESULTS */
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.result-card{border-radius:10px;padding:18px;font-size:13px}
+.result-card.approved{background:#E6FBF5;border:1px solid #00CF9944}
+.result-card.update{background:#FFF8E6;border:1px solid #FFBE0B44}
+.result-card h4{font-size:15px;font-weight:700;margin-bottom:8px}
+.result-card ul{padding-left:16px;color:var(--text)}
+.result-card ul li{margin-bottom:4px}
+
+/* FAQ */
+.faq-section{margin-bottom:8px}
+.faq-section h3{font-size:15px;font-weight:700;color:var(--navy);margin:24px 0 8px}
+.faq-item{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:6px}
+.faq-q{width:100%;text-align:left;background:var(--white);border:none;padding:14px 18px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}
+.faq-q:hover{background:var(--bg)}
+.faq-q .arrow{transition:transform .2s;font-size:12px;color:var(--muted)}
+.faq-q.open .arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 18px 14px;font-size:14px;color:var(--muted);line-height:1.6}
+.faq-a.open{display:block}
+
+/* NAV BUTTONS */
+.nav-btns{display:flex;justify-content:space-between;margin-top:32px;gap:12px}
+.btn{padding:10px 24px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-dark)}
+.btn-secondary{background:var(--white);color:var(--blue);border:1px solid var(--blue)}
+.btn-secondary:hover{background:#EEF5FF}
+.btn:disabled{opacity:.4;cursor:default}
+
+/* FOOTER */
+footer{background:var(--navy);color:#B7CFFB;text-align:center;padding:24px;font-size:13px}
+footer a{color:var(--green)}
+
+@media(max-width:600px){
+  .result-grid{grid-template-columns:1fr}
+  .biz-selector{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+
+<nav>
+  <a class="logo" href="#">
+    <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#1762EE"/><path d="M7 14l5 5 9-10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Xendit
+  </a>
+  <span class="nav-badge">KYC Verification Guide</span>
+</nav>
+
+<div class="hero">
+  <h1>Getting Your Account Verified with Xendit</h1>
+  <p>A step-by-step guide for Indonesian businesses. Follow the steps below to get verified and start accepting payments.</p>
+  <div class="badge-row">
+    <span class="badge">⏱ 1–3 business days</span>
+    <span class="badge">📋 4 simple steps</span>
+    <span class="badge">🇮🇩 Indonesian businesses</span>
+  </div>
+</div>
+
+<div class="stepper-wrap">
+  <div class="stepper">
+    <div class="step-tab active" onclick="goToStep(0)"><span class="num">1</span>Business Type</div>
+    <div class="step-tab" onclick="goToStep(1)"><span class="num">2</span>Gather Docs</div>
+    <div class="step-tab" onclick="goToStep(2)"><span class="num">3</span>Upload Docs</div>
+    <div class="step-tab" onclick="goToStep(3)"><span class="num">4</span>After Submission</div>
+    <div class="step-tab" onclick="goToStep(4)"><span class="num">?</span>FAQ</div>
+  </div>
+</div>
+
+<div class="container">
+
+
+<!-- STEP 1 -->
+<div class="step-panel active" id="panel-0">
+  <h2>Step 1 — Identify Your Business Type</h2>
+  <p>The first thing you need to do is select your business type in the Xendit dashboard. Selecting the wrong type is the most common reason applications are returned before review even begins.</p>
+
+  <h3>Select your business type to see what applies to you:</h3>
+  <div class="biz-selector">
+    <button class="biz-btn active" onclick="selectBiz(this,'pt')">🏢 PT / PMA</button>
+    <button class="biz-btn" onclick="selectBiz(this,'foundation')">🤝 Foundation (Yayasan)</button>
+    <button class="biz-btn" onclick="selectBiz(this,'cv')">📄 CV</button>
+    <button class="biz-btn" onclick="selectBiz(this,'pp')">👤 Perseroan Perseorangan</button>
+  </div>
+
+  <div class="biz-content active" id="biz-pt">
+    <div class="card">
+      <strong>PT (Perseroan Terbatas) & PT PMA</strong>
+      <p style="margin-top:8px;margin-bottom:0">A legally registered company in Indonesia. Includes all company types with official government registration — PT, PT PMA (foreign-owned), and other registered entities.</p>
+    </div>
+  </div>
+  <div class="biz-content" id="biz-foundation">
+    <div class="card">
+      <strong>Foundation / Association (Yayasan)</strong>
+      <p style="margin-top:8px;margin-bottom:0">A non-profit organization registered for social, religious, educational, or humanitarian purposes.</p>
+    </div>
+  </div>
+  <div class="biz-content" id="biz-cv">
+    <div class="card">
+      <strong>CV (Commanditaire Vennootschap)</strong>
+      <p style="margin-top:8px;margin-bottom:0">A partnership business with at least one active and one passive partner, registered with the government.</p>
+    </div>
+  </div>
+  <div class="biz-content" id="biz-pp">
+    <div class="card">
+      <strong>Perseroan Perseorangan (PP)</strong>
+      <p style="margin-top:8px;margin-bottom:0">A sole proprietorship company (micro/small enterprise) registered under the 2020 Cipta Kerja law. Similar to a simplified limited liability company for individuals.</p>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">❓</span>
+    <div><strong>My business type is not listed — what do I do?</strong><br>Xendit accepts Business Entity (PT, CV, PT PMA, PP) and Foundation (Yayasan/Koperasi). Individual/personal accounts are not accepted. If your type is not listed, you must first register your business officially before applying.</div>
+  </div>
+
+  <h3>Who Should Submit the Verification?</h3>
+  <p>The application can be completed by an assigned PIC (admin, secretary, back-office). However, the Authorized Representative/Director(s) must personally complete the final Face Verification (Liveness Check).</p>
+  <div class="callout tip">
+    <span class="callout-icon">💡</span>
+    <div><strong>Liveness Check — Face Verification</strong><br>The Authorized Representative/Director(s) must complete this step in person. It cannot be done on someone else's behalf. Your browser will ask for camera permission — you must click Allow. Use a device with a working front-facing camera.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-secondary" disabled>← Previous</button>
+    <button class="btn btn-primary" onclick="goToStep(1)">Next: Gather Documents →</button>
+  </div>
+</div>
+
+
+<!-- STEP 2 -->
+<div class="step-panel" id="panel-1">
+  <h2>Step 2 — Gather Your Documents</h2>
+  <p>Before you open the Xendit dashboard, prepare all documents listed below and submit them in one complete submission to avoid delays.</p>
+
+  <div class="callout tip">
+    <span class="callout-icon">💡</span>
+    <div><strong>Tip:</strong> Scan or photograph each document clearly. Name the files so you can find them quickly. Having everything ready before you start will save you a lot of time.</div>
+  </div>
+
+  <div class="callout info">
+    <span class="callout-icon">ℹ️</span>
+    <div><strong>New company with no amendments yet?</strong><br>If your company was recently established (less than 5 years) and has never changed anything in its founding documents, you only need the Akta Pendirian and SK Menkeh. No Akta Perubahan required.</div>
+  </div>
+
+  <h3>Documents Required — by Business Type</h3>
+  <p style="font-size:13px;color:var(--muted)">Select your type above in Step 1 to see your relevant column highlighted.</p>
+  <div style="overflow-x:auto">
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th>Document</th>
+        <th>PT & PMA</th>
+        <th>Foundation</th>
+        <th>CV</th>
+        <th>Perseroan Perseorangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Business Identification Number (NIB)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
+      <tr><td>Akta Pendirian</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
+      <tr><td>Akta Perubahan (all amendments)</td><td><span class="tag cond">If any</span></td><td><span class="tag cond">If any</span></td><td><span class="tag cond">If any</span></td><td><span class="tag no">❌ Not required</span></td></tr>
+      <tr><td>SK Menkeh — Pendirian and/or Perubahan</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
+      <tr><td>Authorized Person's Personal ID (KTP / KITAS + Passport)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
+      <tr><td>Company Tax ID (NPWP)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
+      <tr><td>Liveness Check (face verification)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
+      <tr><td>Proof of Business (website / online store)</td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag req">✅ Required</span></td></tr>
+      <tr><td>Board Resolution Granting Authority</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
+      <tr><td>Additional ID for shareholders &gt;20% share</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
+      <tr><td>Letter of Authorization (if PIC ≠ Director)</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
+      <tr><td>Merchant Proof of Address</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
+      <tr><td>Surat Keterangan Terdaftar (SKT)</td><td><span class="tag no">❌ Not required</span></td><td><span class="tag no">❌ Not required</span></td><td><span class="tag req">✅ Required</span></td><td><span class="tag no">❌ Not required</span></td></tr>
+      <tr><td>Business licence (high-risk industries only)</td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td><td><span class="tag cond">Conditional</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:6px">Conditional = only required in specific situations described in the Important Notes. Check <a href="https://docs.xendit.co" target="_blank">docs.xendit.co</a> for industry-specific licence requirements.</p>
+
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goToStep(0)">← Previous</button>
+    <button class="btn btn-primary" onclick="goToStep(2)">Next: Upload Documents →</button>
+  </div>
+</div>
+
+
+<!-- STEP 3 -->
+<div class="step-panel" id="panel-2">
+  <h2>Step 3 — Upload Your Documents</h2>
+  <p>Once you have everything ready, go to your <a href="https://dashboard.xendit.co" target="_blank">Xendit Dashboard</a> to upload the documents.</p>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div><strong>Before you proceed:</strong> Carefully follow every checklist below. Doing so will ensure a smoother approval and minimize resubmission requests.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">3A — Document Quality</h3>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="pb-a" style="width:0%"></div></div>
+    <div class="progress-label" id="pl-a">0 of 4 checked</div>
+    <ul class="checklist" id="cl-a">
+      <li><input type="checkbox" id="a1" onchange="updateProgress('cl-a','pb-a','pl-a',4)"><label for="a1">Clear, full-page colour scans or high-resolution photos — no glare, shadow, or cropped edges</label></li>
+      <li><input type="checkbox" id="a2" onchange="updateProgress('cl-a','pb-a','pl-a',4)"><label for="a2">Multi-page documents combined into a single PDF</label></li>
+      <li><input type="checkbox" id="a3" onchange="updateProgress('cl-a','pb-a','pl-a',4)"><label for="a3">File size under 8 MB per document — compress if too large</label></li>
+      <li><input type="checkbox" id="a4" onchange="updateProgress('cl-a','pb-a','pl-a',4)"><label for="a4">Accepted formats: .jpeg .jpg .png .pdf only</label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">3B — Document Validity</h3>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="pb-b" style="width:0%"></div></div>
+    <div class="progress-label" id="pl-b">0 of 4 checked</div>
+    <ul class="checklist" id="cl-b">
+      <li><input type="checkbox" id="b1" onchange="updateProgress('cl-b','pb-b','pl-b',4)"><label for="b1">All company documents are the most updated / latest version</label></li>
+      <li><input type="checkbox" id="b2" onchange="updateProgress('cl-b','pb-b','pl-b',4)"><label for="b2">All pages included — no missing pages within a document</label></li>
+      <li><input type="checkbox" id="b3" onchange="updateProgress('cl-b','pb-b','pl-b',4)"><label for="b3">Documents are issued by relevant government authorities</label></li>
+      <li><input type="checkbox" id="b4" onchange="updateProgress('cl-b','pb-b','pl-b',4)"><label for="b4">No expired IDs, business licences, or registration documents</label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">3C — Name Matching Rules</h3>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="pb-c" style="width:0%"></div></div>
+    <div class="progress-label" id="pl-c">0 of 3 checked</div>
+    <ul class="checklist" id="cl-c">
+      <li><input type="checkbox" id="c1" onchange="updateProgress('cl-c','pb-c','pl-c',3)"><label for="c1">Company name matches exactly across all documents and your Xendit registration</label></li>
+      <li><input type="checkbox" id="c2" onchange="updateProgress('cl-c','pb-c','pl-c',3)"><label for="c2">Authorized Director's full name matches across: KTP/KITAS/Passport, Personal NPWP, latest Akta, latest SK Menkeh, and Xendit registration</label></li>
+      <li><input type="checkbox" id="c3" onchange="updateProgress('cl-c','pb-c','pl-c',3)"><label for="c3">Akta includes latest Board of Directors, Board of Commissioners, and Stakeholders details. All name/director changes are traceable through supporting Akta Perubahan.</label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">3D — Website / Online Store Accessibility</h3>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="pb-d" style="width:0%"></div></div>
+    <div class="progress-label" id="pl-d">0 of 5 checked</div>
+    <ul class="checklist" id="cl-d">
+      <li><input type="checkbox" id="d1" onchange="updateProgress('cl-d','pb-d','pl-d',5)"><label for="d1">Publicly accessible &amp; fully functional — no login required, no broken pages or links</label></li>
+      <li><input type="checkbox" id="d2" onchange="updateProgress('cl-d','pb-d','pl-d',5)"><label for="d2">Products or services clearly listed</label></li>
+      <li><input type="checkbox" id="d3" onchange="updateProgress('cl-d','pb-d','pl-d',5)"><label for="d3">Content matches your registered business category</label></li>
+      <li><input type="checkbox" id="d4" onchange="updateProgress('cl-d','pb-d','pl-d',5)"><label for="d4">A clear refund policy is available on your store's checkout</label></li>
+      <li><input type="checkbox" id="d5" onchange="updateProgress('cl-d','pb-d','pl-d',5)"><label for="d5">Terms &amp; Conditions are visible</label></li>
+    </ul>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">💡</span>
+    <div>Sample documents are available directly in the Xendit dashboard — click the document name inside the upload form to see a reference example.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goToStep(1)">← Previous</button>
+    <button class="btn btn-primary" onclick="goToStep(3)">Next: After Submission →</button>
+  </div>
+</div>
+
+
+<!-- STEP 4 -->
+<div class="step-panel" id="panel-3">
+  <h2>Step 4 — After You Submit</h2>
+  <p>Once you click Submit, Xendit's team will review your application. Here is what happens next and how to check your status.</p>
+
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-icon">📤</div>
+      <div class="tl-label">You Submit</div>
+      <div class="tl-sub">Complete form &amp; upload all docs</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-icon">📧</div>
+      <div class="tl-label">Confirmation Email</div>
+      <div class="tl-sub">Xendit confirms receipt</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-icon">🔍</div>
+      <div class="tl-label">Under Review</div>
+      <div class="tl-sub">1–3 business days</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-icon">✉️</div>
+      <div class="tl-label">Result Sent</div>
+      <div class="tl-sub">Email + dashboard status</div>
+    </div>
+  </div>
+
+  <h3>2 Possible Results</h3>
+  <div class="result-grid">
+    <div class="result-card approved">
+      <h4>✅ Approved</h4>
+      <p>Your account is live. You can start accepting real payments by logging in to <a href="https://dashboard.xendit.co" target="_blank">dashboard.xendit.co</a>.</p>
+    </div>
+    <div class="result-card update">
+      <h4>⚠️ Update Needed</h4>
+      <p>Not a rejection. Your application is still active.</p>
+      <ul>
+        <li>Check flagged documents in the email or dashboard</li>
+        <li>Upload only the documents mentioned</li>
+        <li>Xendit reviews again within 1–3 days</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">📬</span>
+    <div><strong>Check your email</strong><br>All updates are sent to the email address used to register. Check spam/junk if you don't see it. Make sure the email linked to your Xendit account is one you access regularly.</div>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div><strong>If your application is fully rejected (rare)</strong><br>In rare cases, an account may be fully rejected rather than returned for corrections. You will need to contact <a href="mailto:help@xendit.co">help@xendit.co</a> to close the account before re-applying. A new application is not guaranteed to be approved.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goToStep(2)">← Previous</button>
+    <button class="btn btn-primary" onclick="goToStep(4)">View FAQ →</button>
+  </div>
+</div>
+
+
+<!-- STEP 5 — FAQ -->
+<div class="step-panel" id="panel-4">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-section">
+    <h3>Account & Login</h3>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">My business type is not in the dropdown. What do I choose? <span class="arrow">▼</span></button><div class="faq-a">Xendit accepts Business Entity (PT, CV, PT PMA, PP) and Foundation (Yayasan/Koperasi). If your type is not listed, it cannot be registered at this time. Check the table in Step 1 for options.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I save my progress and finish later? <span class="arrow">▼</span></button><div class="faq-a">Yes. But we recommend gathering all documents before opening the form so you can submit everything at once and avoid delays.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I submitted but did not receive a confirmation email. <span class="arrow">▼</span></button><div class="faq-a">Check your spam or junk folder first. If you still cannot find it, make sure the email address registered with Xendit is correct and accessible.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I forgot my password and cannot log in. <span class="arrow">▼</span></button><div class="faq-a">Go to <a href="https://dashboard.xendit.co" target="_blank">dashboard.xendit.co</a> and click 'Forgot Password'. A reset link will be sent to your registered email.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How can I check my registration and verification status? <span class="arrow">▼</span></button><div class="faq-a">Log in to <a href="https://dashboard.xendit.co" target="_blank">dashboard.xendit.co</a> using your registered email. Your verification status is visible directly in the dashboard.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Why do I see "User email already exists"? <span class="arrow">▼</span></button><div class="faq-a">This means the email has already been registered. Use the 'Forgot Password' option to recover your account instead of creating a new one.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if I accidentally registered the wrong business type? <span class="arrow">▼</span></button><div class="faq-a">Contact <a href="mailto:help@xendit.co">help@xendit.co</a> before proceeding further. Changing business type after registration requires additional steps.</div></div>
+  </div>
+
+  <div class="faq-section">
+    <h3>Documents</h3>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I do not have an NIB yet. Can I still apply? <span class="arrow">▼</span></button><div class="faq-a">We recommend getting your NIB — it is now the standard requirement. You can register at <a href="https://oss.go.id" target="_blank">OSS (oss.go.id)</a>.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">My company was just established and has no amendments. Do I still need to submit Akta Perubahan? <span class="arrow">▼</span></button><div class="faq-a">No. If nothing has changed since founding, just submit the Akta Pendirian and its SK Menkeh.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I cannot find my older Akta Perubahan. What should I do? <span class="arrow">▼</span></button><div class="faq-a">Contact the notary who prepared your company documents — they are required by law to keep copies of all notarial deeds.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">My ID Card (KTP) has expired. Can I still use it? <span class="arrow">▼</span></button><div class="faq-a">No. An expired KTP will be rejected. Please renew your KTP at your nearest Dukcapil office before applying.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">My Tanda Daftar Yayasan (TDY) has expired. What should I do? <span class="arrow">▼</span></button><div class="faq-a">A TDY past its expiry date cannot be accepted. Renew it at Kemenkumham before applying.</div></div>
+  </div>
+
+  <div class="faq-section">
+    <h3>Returned Applications</h3>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Xendit asked me to update my documents. Does that mean I was rejected? <span class="arrow">▼</span></button><div class="faq-a">No. This is not a rejection. It means one or more documents need to be corrected. Your application is still active — fix the documents mentioned in the email and resubmit.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How do I know which documents need to be updated? <span class="arrow">▼</span></button><div class="faq-a">The email from Xendit and your dashboard will tell you exactly which documents need attention.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I add extra documents that Xendit did not ask for? <span class="arrow">▼</span></button><div class="faq-a">Xendit will inform you when extra documents are needed. Only submit what is requested to avoid confusion.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How long do I have to resubmit my documents? <span class="arrow">▼</span></button><div class="faq-a">There is no deadline. But your account will remain inactive until your updated documents are submitted and approved.</div></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goToStep(3)">← Previous</button>
+    <button class="btn btn-primary" onclick="goToStep(0)">↩ Back to Start</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+
+<footer>
+  <p>Still have questions? We're here to help.</p>
+  <p style="margin-top:6px"><a href="https://docs.xendit.co" target="_blank">docs.xendit.co</a> &nbsp;·&nbsp; <a href="mailto:help@xendit.co">help@xendit.co</a></p>
+</footer>
+
+<script>
+const panels = document.querySelectorAll('.step-panel');
+const tabs = document.querySelectorAll('.step-tab');
+
+function goToStep(i) {
+  panels.forEach((p, idx) => p.classList.toggle('active', idx === i));
+  tabs.forEach((t, idx) => {
+    t.classList.toggle('active', idx === i);
+    if (idx < i) t.classList.add('done'); else t.classList.remove('done');
+  });
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function selectBiz(btn, id) {
+  document.querySelectorAll('.biz-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.biz-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('biz-' + id).classList.add('active');
+}
+
+function updateProgress(listId, barId, labelId, total) {
+  const checked = document.querySelectorAll('#' + listId + ' input:checked').length;
+  document.getElementById(barId).style.width = (checked / total * 100) + '%';
+  document.getElementById(labelId).textContent = checked + ' of ' + total + ' checked';
+}
+
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  answer.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
